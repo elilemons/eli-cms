@@ -2,6 +2,7 @@ import { CollectionConfig } from 'payload'
 
 const Resumes: CollectionConfig = {
   slug: 'resumes',
+  // TODO Lock this down so I only can access any resumes not marked as "main"
   fields: [
     {
       name: 'title',
