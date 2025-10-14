@@ -71,6 +71,8 @@ export interface Config {
     posts: Post;
     media: Media;
     categories: Category;
+    skills: Skill;
+    skillTypes: SkillType;
     users: User;
     redirects: Redirect;
     forms: Form;
@@ -87,6 +89,8 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    skills: SkillsSelect<false> | SkillsSelect<true>;
+    skillTypes: SkillTypesSelect<false> | SkillTypesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -745,6 +749,27 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skills".
+ */
+export interface Skill {
+  id: string;
+  title: string;
+  type: string | SkillType;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skillTypes".
+ */
+export interface SkillType {
+  id: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -931,6 +956,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'skills';
+        value: string | Skill;
+      } | null)
+    | ({
+        relationTo: 'skillTypes';
+        value: string | SkillType;
       } | null)
     | ({
         relationTo: 'users';
@@ -1274,6 +1307,25 @@ export interface CategoriesSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skills_select".
+ */
+export interface SkillsSelect<T extends boolean = true> {
+  title?: T;
+  type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skillTypes_select".
+ */
+export interface SkillTypesSelect<T extends boolean = true> {
+  title?: T;
   updatedAt?: T;
   createdAt?: T;
 }
