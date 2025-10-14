@@ -7,11 +7,15 @@ interface Props {
   dark?: boolean
 }
 
-export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className, dark } = props
-
+export const Logo = ({
+  loading: loadingFromProps,
+  priority: priorityFromProps,
+  className,
+  dark = true,
+}: Props) => {
   const loading = loadingFromProps || 'lazy'
   const priority = priorityFromProps || 'low'
+  const src = dark ? '/logo-white.svg' : '/logo.svg'
 
   return (
     /* eslint-disable @next/next/no-img-element */
@@ -23,7 +27,7 @@ export const Logo = (props: Props) => {
       fetchPriority={priority}
       decoding="async"
       className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src={dark ? '/logo-white.svg' : '/logo.svg'}
+      src={src}
     />
   )
 }

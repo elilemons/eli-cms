@@ -20,6 +20,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: themeFromProvider } = useTheme()
   const pathname = usePathname()
+  const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -31,11 +32,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  useEffect(() => {
+    setIsDark(themeFromProvider === 'dark')
+  }, [themeFromProvider])
+
   return (
     <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
       <div className="py-8 flex justify-between">
         <Link href="/">
-          <Logo loading="eager" priority="high" dark={themeFromProvider === 'dark'} />
+          <Logo loading="lazy" priority="high" dark={isDark} />
         </Link>
         <HeaderNav data={data} />
       </div>
