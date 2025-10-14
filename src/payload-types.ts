@@ -71,9 +71,15 @@ export interface Config {
     posts: Post;
     media: Media;
     categories: Category;
+    communityInvolvements: CommunityInvolvement;
+    contactInformations: ContactInformation;
+    jobs: Job;
+    jobProjects: JobProject;
     skills: Skill;
     skillTypes: SkillType;
     users: User;
+    references: Reference;
+    resumes: Resume;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -89,9 +95,15 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    communityInvolvements: CommunityInvolvementsSelect<false> | CommunityInvolvementsSelect<true>;
+    contactInformations: ContactInformationsSelect<false> | ContactInformationsSelect<true>;
+    jobs: JobsSelect<false> | JobsSelect<true>;
+    jobProjects: JobProjectsSelect<false> | JobProjectsSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
     skillTypes: SkillTypesSelect<false> | SkillTypesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    references: ReferencesSelect<false> | ReferencesSelect<true>;
+    resumes: ResumesSelect<false> | ResumesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -749,6 +761,67 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "communityInvolvements".
+ */
+export interface CommunityInvolvement {
+  id: string;
+  title: string;
+  organization?: string | null;
+  dateStarted: string;
+  dateEnded?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contactInformations".
+ */
+export interface ContactInformation {
+  id: string;
+  title: string;
+  website?: string | null;
+  email?: string | null;
+  number?: string | null;
+  linkedIn?: string | null;
+  github?: string | null;
+  codepen?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+  id: string;
+  title: string;
+  dateStarted: string;
+  dateEnded?: string | null;
+  location?: string | null;
+  bulletPoints?:
+    | {
+        bulletPoint?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  jobProjects?: (string | JobProject)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobProjects".
+ */
+export interface JobProject {
+  id: string;
+  name: string;
+  role: string;
+  skills?: (string | Skill)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "skills".
  */
 export interface Skill {
@@ -765,6 +838,35 @@ export interface Skill {
 export interface SkillType {
   id: string;
   title: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "references".
+ */
+export interface Reference {
+  id: string;
+  name: string;
+  role?: string | null;
+  contactInformation?: string | null;
+  relationship?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resumes".
+ */
+export interface Resume {
+  id: string;
+  title?: string | null;
+  contactInformation?: (string | null) | ContactInformation;
+  summary?: string | null;
+  skills?: (string | Skill)[] | null;
+  jobs?: (string | Job)[] | null;
+  communityInvolvements?: (string | CommunityInvolvement)[] | null;
+  references?: (string | Reference)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -958,6 +1060,22 @@ export interface PayloadLockedDocument {
         value: string | Category;
       } | null)
     | ({
+        relationTo: 'communityInvolvements';
+        value: string | CommunityInvolvement;
+      } | null)
+    | ({
+        relationTo: 'contactInformations';
+        value: string | ContactInformation;
+      } | null)
+    | ({
+        relationTo: 'jobs';
+        value: string | Job;
+      } | null)
+    | ({
+        relationTo: 'jobProjects';
+        value: string | JobProject;
+      } | null)
+    | ({
         relationTo: 'skills';
         value: string | Skill;
       } | null)
@@ -968,6 +1086,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'references';
+        value: string | Reference;
+      } | null)
+    | ({
+        relationTo: 'resumes';
+        value: string | Resume;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1312,6 +1438,63 @@ export interface CategoriesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "communityInvolvements_select".
+ */
+export interface CommunityInvolvementsSelect<T extends boolean = true> {
+  title?: T;
+  organization?: T;
+  dateStarted?: T;
+  dateEnded?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contactInformations_select".
+ */
+export interface ContactInformationsSelect<T extends boolean = true> {
+  title?: T;
+  website?: T;
+  email?: T;
+  number?: T;
+  linkedIn?: T;
+  github?: T;
+  codepen?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+  title?: T;
+  dateStarted?: T;
+  dateEnded?: T;
+  location?: T;
+  bulletPoints?:
+    | T
+    | {
+        bulletPoint?: T;
+        id?: T;
+      };
+  jobProjects?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobProjects_select".
+ */
+export interface JobProjectsSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  skills?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "skills_select".
  */
 export interface SkillsSelect<T extends boolean = true> {
@@ -1351,6 +1534,33 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "references_select".
+ */
+export interface ReferencesSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  contactInformation?: T;
+  relationship?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resumes_select".
+ */
+export interface ResumesSelect<T extends boolean = true> {
+  title?: T;
+  contactInformation?: T;
+  summary?: T;
+  skills?: T;
+  jobs?: T;
+  communityInvolvements?: T;
+  references?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -6,6 +6,12 @@ import { buildConfig, PayloadRequest } from 'payload'
 import sharp from 'sharp' // sharp-import
 import { fileURLToPath } from 'url'
 
+import CommunityInvolvements from '@/collections/CommunityInvolvements'
+import ContactInformations from '@/collections/ContactInformations'
+import JobProjects from '@/collections/JobProjects'
+import Jobs from '@/collections/Jobs'
+import References from '@/collections/References'
+import Resumes from '@/collections/Resumes'
 import Skills from '@/collections/Skills'
 import SkillTypes from '@/collections/SkillTypes'
 import { defaultLexical } from '@/fields/defaultLexical'
@@ -64,7 +70,21 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Skills, SkillTypes, Users],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    CommunityInvolvements,
+    ContactInformations,
+    Jobs,
+    JobProjects,
+    Skills,
+    SkillTypes,
+    Users,
+    References,
+    Resumes,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
